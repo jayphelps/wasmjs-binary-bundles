@@ -1,7 +1,6 @@
 <script>
   async function main() {
-    const req = fetch('main.wasm');
-    const module = await WebAssembly.compileStreaming(req);
+    const module = await WebAssembly.compileStreaming(fetch('main.wasm'));
     const [section] = WebAssembly.Module.customSections(module, 'wasmjs');
 
     // JS files can actually contain non-ASCII symbols so
