@@ -1,0 +1,37 @@
+<script>
+  async function loadWasmJs(url) {
+    // "wajs" as 32-bit unsigned int
+    const MAGIC_NUMBER = 0x736A6177;
+    // Magic number (4 bytes) + WASM module length (4 bytes, 32-bit int)
+    const HEADER_SIZE = 8;
+
+    const resp = await fetch(url);
+    const buffer = await resp.arrayBuffer();
+    const uint32Array = new Uint32Array(buffer, 0, HEADER_SIZE);
+    const [magicNumber, wasmSize] = uint32Array;
+
+    if (magicNumber !== MAGIC_NUMBER) {
+      const uint8Array = new Uint8Array(buffer, 0, HEADER_SIZE);
+      throw new Error(`fat wasmjs decoding failed: expected magic word 77 61 6a 73, found ${uint8Array[0].toString(16)} ${uint8Array[1].toString(16)} ${uint8Array[2].toString(16)} ${uint8Array[3].toString(16)}`);
+    }
+
+    const wasmEnd = HEADER_SIZE + wasmSize;
+    const wasm = buffer.slice(HEADER_SIZE, wasmEnd);
+
+    const jsBuffer = buffer.slice(wasmEnd);
+    // JS files can actually contain non-ASCII symbols so
+    // using String.fromCharCode wouldn't work in those cases
+    const decoder = new TextDecoder();
+    const js = decoder.decode(jsBuffer);
+
+    return { wasm, js };
+  }
+
+  async function main() {
+    const { wasm, js } = await loadWasmJs('main.wasmjs');
+    const start = new Function('wasm', js);
+    start(wasm);
+  }
+
+  main();
+</script>

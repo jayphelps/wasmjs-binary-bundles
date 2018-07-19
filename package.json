@@ -1,0 +1,23 @@
+{
+  "name": "fat-wasmjs-binaries",
+  "version": "0.0.1",
+  "description": "Experimenting with combining WebAssembly and JavaScript into a single file.",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server",
+    "build": "node scripts/build-fat-binary.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayphelps/fat-wasmjs-binaries.git"
+  },
+  "author": "Jay Phelps <hello@jayphelps.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jayphelps/fat-wasmjs-binaries/issues"
+  },
+  "homepage": "https://github.com/jayphelps/fat-wasmjs-binaries#readme",
+  "devDependencies": {
+    "http-server": "^0.11.1"
+  }
+}
