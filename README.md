@@ -1,4 +1,4 @@
-# fat-wasmjs-binaries
+# wasmjs-fat-binaries
 
 Experimenting with combining WebAssembly and JavaScript into a single file.
 
