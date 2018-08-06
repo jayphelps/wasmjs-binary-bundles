@@ -3,8 +3,6 @@
     const module = await WebAssembly.compileStreaming(fetch('main.wasm'));
     const [section] = WebAssembly.Module.customSections(module, 'wasmjs');
 
-    // JS files can actually contain non-ASCII symbols so
-    // using String.fromCharCode wouldn't work in those cases
     const decoder = new TextDecoder();
     const js = decoder.decode(section);
     const start = new Function('WASM_MODULE', js);
