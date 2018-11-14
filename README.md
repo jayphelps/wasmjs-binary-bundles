@@ -1,8 +1,8 @@
 # wasmjs-binary-bundles
 
-Experimenting with combining WebAssembly and JavaScript into a single file with the idea that maybe any JS runtime required wouldn't need a separate network request. This sort of makes a "bundle" of both Wasm and JS.
+Proof of concept experiment combining WebAssembly and JavaScript into a single file with the idea that maybe any JS runtime required wouldn't need a separate network request. This sort of makes a "bundle" of both Wasm and JS.
 
-At this point this is just that, an experiment and I do not recommend using this example in production as there are several issues with it and whether or not it actually would be useful or a performance win is dubious.
+This isn't currently a library you can use, just a proof of concept. It is not yet clear if this technique would actually provide gains, and in fact there are many situations where it would negatively impact performance because we can't start compiling the JavaScript until the Wasm is done compiling. If there isn't high network count contention concurrent would almost always be better. So it is probably best in most cases to continue to ship two files for this reason or look into [Web Packages](https://github.com/WICG/webpackage/blob/master/explainer.md).
 
 ## Custom Section
 
